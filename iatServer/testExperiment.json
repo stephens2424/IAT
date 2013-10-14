@@ -1,0 +1,60 @@
+{
+	"DichotomyA": {
+		"ListA": {
+			"Title": "Fruit",
+			"Items": [
+				"Apple",
+				"Pear",
+				"Banana",
+				"Guava",
+				"Cantelope",
+				"Orange",
+				"Watermelon",
+				"Blueberry",
+				"Strawberry"
+			]
+		},
+		"ListB": {
+			"Title": "Vegetable",
+			"Items": [
+				"Broccoli",
+				"Cauliflour",
+				"Asparagus",
+				"Artichoke",
+				"Carrot",
+				"Lettuce",
+				"Celery",
+				"Onion",
+				"Pea"
+			]
+		}
+	},
+	"DichotomyB": {
+		"ListA": {
+			"Title": "Good",
+			"Items": [
+				"Good",
+				"Wonderful",
+				"Delicious",
+				"Fabulous",
+				"Marvellous",
+				"Amazing",
+				"Awesome",
+				"Glorious"
+			]
+		},
+		"ListB": {
+			"Title": "Bad",
+			"Items": [
+				"Terrible",
+				"Atrocious",
+				"Horrible",
+				"Bad",
+				"Abhorrent",
+				"Disgusting",
+				"Icky",
+				"Gross"
+			]
+		}
+	}
+}

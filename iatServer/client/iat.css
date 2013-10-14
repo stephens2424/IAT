@@ -1,0 +1,24 @@
+.left {
+  position: absolute;
+  left: 10px;
+}
+.right {
+  position: absolute;
+  right: 10px;
+  text-align: right;
+}
+.center {
+  text-align: center;
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  margin: 10% auto;
+}
+.lower {
+  margin-top: 80px;
+}
+div {
+  font-size: 24px;
+  font-family: Helvetica, sans-serif;
+}

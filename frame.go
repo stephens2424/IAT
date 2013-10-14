@@ -8,11 +8,13 @@ import (
 type frame interface {
 	RenderFrame(wr io.Writer, tmpl *template.Template) error
 	Correct() Direction
+  Block() int
 }
 
 type iatFrame struct {
 	Center      string
 	correct     Direction
+  block int
 	FrameTitles frameTitles
 }
 
@@ -24,11 +26,15 @@ func (f iatFrame) Correct() Direction {
 	return f.correct
 }
 
+func (f iatFrame) Block() int {
+  return f.block
+}
+
 type frameTitles struct {
 	UpperLeft, LowerLeft, UpperRight, LowerRight string
 }
 
-func singleDichotomyFrames(a Dichotomy, trials int, leftIsA bool) []frame {
+func singleDichotomyFrames(a Dichotomy, trials int, leftIsA bool, block int) []frame {
 	frames := make([]frame, trials)
 	combinedItems := NewRandomLeftRightList([][]string{a.ListA.Items}, [][]string{a.ListB.Items})
 
@@ -46,12 +52,12 @@ func singleDichotomyFrames(a Dichotomy, trials int, leftIsA bool) []frame {
 	}
 	for i := 0; i < trials; i++ {
 		item, dir := combinedItems.Get()
-		frames[i] = iatFrame{item, dir, titles}
+		frames[i] = iatFrame{item, dir, block, titles}
 	}
 	return frames
 }
 
-func doubleDichotomyFrames(a, b Dichotomy, trials int, leftIsAUpper bool) []frame {
+func doubleDichotomyFrames(a, b Dichotomy, trials int, leftIsAUpper bool, block int) []frame {
 	frames := make([]frame, trials)
 	var leftLists, rightLists [][]string
 
@@ -76,7 +82,7 @@ func doubleDichotomyFrames(a, b Dichotomy, trials int, leftIsAUpper bool) []fram
 	titles.LowerRight = b.ListB.Title
 	for i := 0; i < trials; i++ {
 		item, dir := combinedItems.Get()
-		frames[i] = iatFrame{item, dir, titles}
+		frames[i] = iatFrame{item, dir, block, titles}
 	}
 	return frames
 }

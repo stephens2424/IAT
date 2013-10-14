@@ -14,6 +14,12 @@ type Experiment struct {
 	DichotomyA, DichotomyB Dichotomy
 }
 
+type ReadyExperiment struct {
+  *Experiment
+  Frames []frame
+  Subject int
+}
+
 // Dichotomy represents a set of opposed categories for the experiment.
 type Dichotomy struct {
 	ListA, ListB CategoryList
@@ -27,20 +33,20 @@ type CategoryList struct {
 }
 
 // Function MakeFrames builds the frames for the experiment. See Table 1 of Greenwald 2003.
-func (e *Experiment) MakeFrames() []frame {
+func (e *Experiment) MakeFrames() ReadyExperiment {
 	frames := make([]frame, 0, 180)
 
 	flip := randBool()
 
-	frames = append(frames, singleDichotomyFrames(e.DichotomyA, 2, flip)...)
-	frames = append(frames, singleDichotomyFrames(e.DichotomyB, 2, true)...) // Greenwald block 2 does not flip
-	frames = append(frames, doubleDichotomyFrames(e.DichotomyA, e.DichotomyB, 2, flip)...)
-	frames = append(frames, doubleDichotomyFrames(e.DichotomyA, e.DichotomyB, 4, flip)...)
-	frames = append(frames, singleDichotomyFrames(e.DichotomyA, 2, !flip)...)
-	frames = append(frames, doubleDichotomyFrames(e.DichotomyA, e.DichotomyB, 2, !flip)...)
-	frames = append(frames, doubleDichotomyFrames(e.DichotomyA, e.DichotomyB, 4, !flip)...)
+	frames = append(frames, singleDichotomyFrames(e.DichotomyA, 20, flip, 1)...)
+	frames = append(frames, singleDichotomyFrames(e.DichotomyB, 20, true, 2)...) // Greenwald block 2 does not flip
+	frames = append(frames, doubleDichotomyFrames(e.DichotomyA, e.DichotomyB, 20, flip, 3)...)
+	frames = append(frames, doubleDichotomyFrames(e.DichotomyA, e.DichotomyB, 40, flip, 4)...)
+	frames = append(frames, singleDichotomyFrames(e.DichotomyA, 20, !flip, 5)...)
+	frames = append(frames, doubleDichotomyFrames(e.DichotomyA, e.DichotomyB, 20, !flip, 6)...)
+	frames = append(frames, doubleDichotomyFrames(e.DichotomyA, e.DichotomyB, 40, !flip, 7)...)
 
-	return frames
+	return ReadyExperiment{e, frames, 0}
 }
 
 type Direction string
@@ -93,3 +99,4 @@ func randBool() bool {
 	}
 	return true
 }
+

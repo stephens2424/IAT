@@ -43,33 +43,42 @@ func (e *Experiment) MakeFrames() []frame {
 	return frames
 }
 
-type direction int
+type Direction string
 
 const (
-	Left  direction = iota
-	Right           = iota
+	Left  Direction = "left"
+	Right           = "right"
 )
 
 type RandomLeftRightList struct {
 	leftList, rightList []string
 }
 
-func NewRandomList(leftLists, rightLists []string) RandomList {
+func NewRandomLeftRightList(leftLists, rightLists [][]string) RandomLeftRightList {
 	this := RandomLeftRightList{}
 	this.leftList = make([]string, 0, 10)
 	this.rightList = make([]string, 0, 10)
 	for _, l := range leftLists {
-		this.leftList = append(this.leftLists, l...)
+		this.leftList = append(this.leftList, l...)
 	}
 	for _, l := range rightLists {
-		this.rightList = append(this.rightLists, l...)
+		this.rightList = append(this.rightList, l...)
 	}
 	return this
 }
 
-func (r RandomList) Get() string {
-	i, _ := randInt(uint64(len(r)))
-	return r[i]
+func (r RandomLeftRightList) Get() (string, Direction) {
+	var l []string
+	var dir Direction
+	if randBool() {
+		l = r.leftList
+		dir = Left
+	} else {
+		l = r.rightList
+		dir = Right
+	}
+	i, _ := randInt(uint64(len(l)))
+	return l[i], dir
 }
 
 func randInt(max uint64) (r uint64, err error) {
@@ -78,7 +87,7 @@ func randInt(max uint64) (r uint64, err error) {
 }
 
 func randBool() bool {
-	i, _ := randInt(1)
+	i, _ := randInt(2)
 	if i == 0 {
 		return false
 	}

@@ -49,7 +49,7 @@ func bufferExperiments(experiment iat.Experiment, framesBuffer chan []byte) {
 			if err != nil {
 				continue
 			}
-			renderedFrames[i] = RenderedFrame{frameBuffer.String()}
+			renderedFrames[i] = RenderedFrame{frameBuffer.String(), frame.Correct()}
 			frameBuffer.Reset()
 		}
 		frameJson, err := json.Marshal(renderedExperiment{
@@ -88,5 +88,6 @@ type renderedExperiment struct {
 }
 
 type RenderedFrame struct {
-	HTML string
+	HTML    string
+	Correct iat.Direction
 }
